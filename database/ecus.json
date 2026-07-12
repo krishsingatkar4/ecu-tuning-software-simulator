@@ -1,0 +1,32 @@
+[
+    {
+        "ecu_id": "ECU001",
+        "ecu_brand": "Bosch",
+        "ecu_model": "MED17.5",
+        "protocol": "CAN Bus",
+        "connection_status": "Disconnected",
+        "supported_features": [
+            "Fuel Map",
+            "Launch Control",
+            "Pops and Bangs"
+        ],
+        "firmware": {
+            "firmware_version": "V2.1",
+            "manufacturer": "Bosch",
+            "release_year": "2024",
+            "checksum": "ABC123",
+            "flash_status": "Not Flashed",
+            "file_size_mb": "16"
+        },
+        "profile": {
+            "profile_name": "Stage 1",
+            "fuel_map": "Performance",
+            "ignition_timing": "Advanced",
+            "rev_limit": "7000",
+            "launch_control": "Enabled",
+            "pops_and_bangs": "Enabled",
+            "horsepower_gain": "40",
+            "torque_gain": "60"
+        }
+    }
+]
