@@ -1,3 +1,5 @@
+from models.fuel_map import FuelMap
+
 class ECUProfile:
     def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain):
         self.profile_name = profile_name
@@ -8,17 +10,18 @@ class ECUProfile:
         self.pops_and_bangs = pops_and_bangs
         self.horsepower_gain = horsepower_gain
         self.torque_gain = torque_gain
+        self.fuel_map = fuel_map
 
     def display_profile(self):
         print("========== ECU PROFILE ==========")
         print(f"Profile Name : {self.profile_name}")
-        print(f"Fuel Map : {self.fuel_map}")
         print(f"Ignition Timing : {self.ignition_timing}")
         print(f"Rev Limit : {self.rev_limit}")
         print(f"Launch Control : {self.launch_control}")
         print(f"Pops And Bangs : {self.pops_and_bangs}")
         print(f"Horsepower Gain : {self.horsepower_gain}")
         print(f"Torque Gain : {self.torque_gain}")
+        self.fuel_map.display_fuel_map()
 
     def update_profile(self):
         print("========== Update Profile ===========")
@@ -30,6 +33,8 @@ class ECUProfile:
         print("6. Update Pops and Bangs")
         print("7. Update Horsepower Gain")
         print("8. Update Torque Gain")
+        print("9. Update Fuel Map")
+        print()
         choice = input("Enter your choice:- ")
         if choice == "1":
             new_profileName = input("Enter new Profile Name:- ")
@@ -63,12 +68,14 @@ class ECUProfile:
             new_torqueGain = input("Enter new Torque Gain:- ")
             self.torque_gain = new_torqueGain
             print(f"Torque Gain update successfully to {self.torque_gain}")
+        elif choice == "9":
+            self.fuel_map.update_fuel_map()
         else:
             print("Invalid choice!!!!")
 
     def to_dict(self):
         return {"profile_name": self.profile_name,
-                "fuel_map": self.fuel_map,
+                "fuel_map": self.fuel_map.to_dict(),
                 "ignition_timing": self.ignition_timing,
                 "rev_limit": self.rev_limit,
                 "launch_control": self.launch_control,

@@ -1,6 +1,7 @@
 from models.ecu import ECU
 from models.ecu_firware import ECUFirmware
 from models.ecu_profile import ECUProfile
+from models.fuel_map import FuelMap
 import time
 import json
 
@@ -10,12 +11,14 @@ class ECUManager:
         self.load_ecus()
 
     def add_ecus(self):
+        #ECU Information
         ecu_id = input("Enter ECU ID:- ")
         ecu_brand = input("Enter ECU Brand:- ")
         ecu_model = input("Enter ECU Model:- ")
         protocol = input("Enter Protocol:- ")
         connection_status = input("Enter Connection Status:- ")
         supported_features = input("Enter Supported Feature separated by commas:- ").split(",")
+        #ECU Firmware
         firmware_version = input("Enter Firmware Version:- ")
         manufacturer = input("Enter Manufacturer:- ")
         release_year = input("Enter Release Year:- ")
@@ -23,8 +26,16 @@ class ECUManager:
         flash_status = input("Enter Flash Status:- ")
         file_size_mb = input("Enter File size in MB:- ")
         firmware = ECUFirmware(firmware_version,manufacturer,release_year, checksum,flash_status,file_size_mb)
+        #Fuel Map
+        fuel_map_name = input("Enter Fuel Map Name:- ")
+        afr = input("Enter afr:- ")
+        injector_size = input("Enter Injector Size:- ")
+        fuel_pressure = input("Enter Fuel Pressure:- ")
+        mod = input("Enter Mode:- ")
+        fuel_type = input("Enter Fuel Type:- ")
+        fuel_map = FuelMap(fuel_map_name,afr,injector_size,fuel_pressure,mod,fuel_type)
+        #ECU Profile
         profile_name = input("Enter Profile Name:- ")
-        fuel_map = input("Enter Fuel Map:- ")
         ingnition_timing = input("Enter Inginition Timing:- ")
         rev_limit = input("Enter Rev Limit:- ")
         launch_control = input("Enter Launch Control:- ")
@@ -90,6 +101,36 @@ class ECUManager:
             else:
                 print("ECU not found!!!!")
 
+    def update_fuel_map(self):
+        fuel_map_name = input("Enter Fuel Map name of which you want to update information:- ")
+        print("Searching....")
+        time.sleep(2)
+        if not self.ecus:
+            print("No Fuel Maps found!!!!")
+        else:
+            for ecu in self.ecus:
+                if ecu.profile.fuel_map.fuel_map_name.lower().strip() == fuel_map_name.lower().strip():
+                    ecu.profile.fuel_map.update_fuel_map()
+                    print("Update done succesfully....")
+                    return
+            else:
+                print("NO Fuel Map found....")
+
+    def search_fuel_map(self):
+        fuel_map_name = input("Enter Fuel Map Name of which you want to search:- ")
+        print("Searching....")
+        time.sleep(2)
+        if not self.ecus:
+            print("No Fuel Map found!!!!")
+        else:
+            for ecu in self.ecus:
+                if ecu.profile.fuel_map.fuel_map_name.lower().strip() == fuel_map_name.lower().strip():
+                    print("Fuel Map found successfully....")
+                    ecu.profile.fuel_map.display_fuel_map()
+                    return
+            else:
+                print("No Fuel Map Found....")
+
     def save_ecus(self):
         ecus_data = []
         for ecu in self.ecus:
@@ -108,6 +149,7 @@ class ECUManager:
         for ecu_data in ecus_data:
             firmware_info = ecu_data["firmware"]
             profile_info = ecu_data["profile"]
+            fuel_map_info = profile_info["fuel_map"]
             firmware = ECUFirmware(
             firmware_info["firmware_version"],
             firmware_info["manufacturer"],
@@ -115,9 +157,16 @@ class ECUManager:
             firmware_info["checksum"],
             firmware_info["flash_status"],
             firmware_info["file_size_mb"] )
+            fuel_map = FuelMap(
+            fuel_map_info["fuel_map_name"],
+            fuel_map_info["afr"],
+            fuel_map_info["injector_size"],
+            fuel_map_info["fuel_pressure"],
+            fuel_map_info["mode"],
+            fuel_map_info["fuel_type"])
             profile = ECUProfile(
             profile_info["profile_name"],
-            profile_info["fuel_map"],
+            fuel_map,
             profile_info["ignition_timing"],
             profile_info["rev_limit"],
             profile_info["launch_control"],

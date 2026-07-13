@@ -1,32 +1,39 @@
 [
     {
-        "ecu_id": "ECU001",
-        "ecu_brand": "Bosch",
-        "ecu_model": "MED17.5",
+        "ecu_id": "ECU003",
+        "ecu_brand": "Magneti Marelli",
+        "ecu_model": "IAW7GF",
         "protocol": "CAN Bus",
-        "connection_status": "Disconnected",
+        "connection_status": "Connected",
         "supported_features": [
             "Fuel Map",
             "Launch Control",
-            "Pops and Bangs"
+            "Rev Limiter"
         ],
         "firmware": {
-            "firmware_version": "V2.1",
-            "manufacturer": "Bosch",
-            "release_year": "2024",
-            "checksum": "ABC123",
-            "flash_status": "Not Flashed",
-            "file_size_mb": "16"
+            "firmware_version": "V5.2",
+            "manufacturer": "Magneti Marelli",
+            "release_year": "2026",
+            "checksum": "MNO456",
+            "flash_status": "Flashed",
+            "file_size_mb": "32"
         },
         "profile": {
-            "profile_name": "Stage 1",
-            "fuel_map": "Performance",
+            "profile_name": "Stage 3",
+            "fuel_map": {
+                "fuel_map_name": "Sport Tune",
+                "afr": "13.0",
+                "injector_size": "600cc",
+                "fuel_pressure": "5 bar",
+                "mode": "Sport",
+                "fuel_type": "Petrol"
+            },
             "ignition_timing": "Advanced",
-            "rev_limit": "7000",
-            "launch_control": "Enabled",
-            "pops_and_bangs": "Enabled",
-            "horsepower_gain": "40",
-            "torque_gain": "60"
+            "rev_limit": "8000",
+            "launch_control": "Enable",
+            "pops_and_bangs": "Enable",
+            "horsepower_gain": "120",
+            "torque_gain": "150"
         }
     }
 ]
