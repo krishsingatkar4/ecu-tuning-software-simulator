@@ -2,6 +2,7 @@ from models.ecu import ECU
 from models.ecu_firware import ECUFirmware
 from models.ecu_profile import ECUProfile
 from models.fuel_map import FuelMap
+from models.ignition_timing import IgnitionTiming
 import time
 import json
 
@@ -34,15 +35,22 @@ class ECUManager:
         mod = input("Enter Mode:- ")
         fuel_type = input("Enter Fuel Type:- ")
         fuel_map = FuelMap(fuel_map_name,afr,injector_size,fuel_pressure,mod,fuel_type)
+        # Ignition Timing
+        timing_name = input("Enter Timing Name:- ")
+        timing_advance = input("Enter Timing Advance:- ")
+        timing_retard = input("Enter Timing Retard:- ")
+        knock_detection = input("Enter Knock Detection:- ")
+        safe_limit = input("Enter Safe Limit:- ")
+        octane_requriement = input("Enter Octane Requrimenet:- ")
+        ignition_timing = IgnitionTiming(timing_name,timing_advance,timing_retard,knock_detection,safe_limit,octane_requriement)
         #ECU Profile
         profile_name = input("Enter Profile Name:- ")
-        ingnition_timing = input("Enter Inginition Timing:- ")
         rev_limit = input("Enter Rev Limit:- ")
         launch_control = input("Enter Launch Control:- ")
         pop_bangs = input("Enter Pops and Bangs:- ")
         horsepower_gain = input("Enter Horsepower Gain:- ")
         torque_gain = input("Enter Torque Gain:- ")
-        profile = ECUProfile(profile_name,fuel_map,ingnition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain)
+        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain)
         ecu = ECU(ecu_id,ecu_brand,ecu_model,protocol,connection_status,supported_features,firmware,profile)
         self.ecus.append(ecu)
         self.save_ecus()
@@ -150,36 +158,44 @@ class ECUManager:
             firmware_info = ecu_data["firmware"]
             profile_info = ecu_data["profile"]
             fuel_map_info = profile_info["fuel_map"]
+            ignition_timing_info = profile_info["ignition_timing"]
             firmware = ECUFirmware(
-            firmware_info["firmware_version"],
-            firmware_info["manufacturer"],
-            firmware_info["release_year"],
-            firmware_info["checksum"],
-            firmware_info["flash_status"],
-            firmware_info["file_size_mb"] )
+                firmware_info["firmware_version"],
+                firmware_info["manufacturer"],
+                firmware_info["release_year"],
+                firmware_info["checksum"],
+                firmware_info["flash_status"],
+                firmware_info["file_size_mb"] )
             fuel_map = FuelMap(
-            fuel_map_info["fuel_map_name"],
-            fuel_map_info["afr"],
-            fuel_map_info["injector_size"],
-            fuel_map_info["fuel_pressure"],
-            fuel_map_info["mode"],
-            fuel_map_info["fuel_type"])
+                fuel_map_info["fuel_map_name"],
+                fuel_map_info["afr"],
+                fuel_map_info["injector_size"],
+                fuel_map_info["fuel_pressure"],
+                fuel_map_info["mode"],
+                fuel_map_info["fuel_type"])
+            ignition_timing = IgnitionTiming(
+                ignition_timing_info["timing_name"],
+                ignition_timing_info["timing_advance"],
+                ignition_timing_info["timing_retard"],
+                ignition_timing_info["knock_detection"],
+                ignition_timing_info["safe_limit"],
+                ignition_timing_info["octane_requirement"])
             profile = ECUProfile(
-            profile_info["profile_name"],
-            fuel_map,
-            profile_info["ignition_timing"],
-            profile_info["rev_limit"],
-            profile_info["launch_control"],
-            profile_info["pops_and_bangs"],
-            profile_info["horsepower_gain"],
-            profile_info["torque_gain"])
+                profile_info["profile_name"],
+                fuel_map,
+                ignition_timing,
+                profile_info["rev_limit"],
+                profile_info["launch_control"],
+                profile_info["pops_and_bangs"],
+                profile_info["horsepower_gain"],
+                profile_info["torque_gain"])
             ecu = ECU(
-            ecu_data["ecu_id"],
-            ecu_data["ecu_brand"],
-            ecu_data["ecu_model"],
-            ecu_data["protocol"],
-            ecu_data["connection_status"],
-            ecu_data["supported_features"],
-            firmware,
-            profile)
+                ecu_data["ecu_id"],
+                ecu_data["ecu_brand"],
+                ecu_data["ecu_model"],
+                ecu_data["protocol"],
+                ecu_data["connection_status"],
+                ecu_data["supported_features"],
+                firmware,
+                profile)
             self.ecus.append(ecu)

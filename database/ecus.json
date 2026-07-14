@@ -1,39 +1,47 @@
 [
     {
-        "ecu_id": "ECU003",
-        "ecu_brand": "Magneti Marelli",
-        "ecu_model": "IAW7GF",
-        "protocol": "CAN Bus",
+        "ecu_id": "ECU004",
+        "ecu_brand": "Continental",
+        "ecu_model": "SIMOS18",
+        "protocol": "FlexRay",
         "connection_status": "Connected",
         "supported_features": [
             "Fuel Map",
             "Launch Control",
-            "Rev Limiter"
+            "Anti Lag",
+            "Ignition Timing"
         ],
         "firmware": {
-            "firmware_version": "V5.2",
-            "manufacturer": "Magneti Marelli",
+            "firmware_version": "V6.0",
+            "manufacturer": "Continental",
             "release_year": "2026",
-            "checksum": "MNO456",
+            "checksum": "DEF789",
             "flash_status": "Flashed",
-            "file_size_mb": "32"
+            "file_size_mb": "48"
         },
         "profile": {
-            "profile_name": "Stage 3",
+            "profile_name": "Stage 4",
             "fuel_map": {
-                "fuel_map_name": "Sport Tune",
-                "afr": "13.0",
-                "injector_size": "600cc",
-                "fuel_pressure": "5 bar",
-                "mode": "Sport",
+                "fuel_map_name": "Track Tune",
+                "afr": "12.2",
+                "injector_size": "700cc",
+                "fuel_pressure": "5.5 bar",
+                "mode": "Race",
                 "fuel_type": "Petrol"
             },
-            "ignition_timing": "Advanced",
-            "rev_limit": "8000",
+            "ignition_timing": {
+                "timing_name": "Aggressive Timing",
+                "timing_advance": "8",
+                "timing_retard": "2",
+                "knock_detection": "Enable",
+                "safe_limit": "8500",
+                "octane_requirement": "98"
+            },
+            "rev_limit": "8500",
             "launch_control": "Enable",
             "pops_and_bangs": "Enable",
-            "horsepower_gain": "120",
-            "torque_gain": "150"
+            "horsepower_gain": "150",
+            "torque_gain": "190"
         }
     }
 ]

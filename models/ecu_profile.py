@@ -1,4 +1,5 @@
 from models.fuel_map import FuelMap
+from models.ignition_timing import IgnitionTiming
 
 class ECUProfile:
     def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain):
@@ -10,7 +11,7 @@ class ECUProfile:
         self.pops_and_bangs = pops_and_bangs
         self.horsepower_gain = horsepower_gain
         self.torque_gain = torque_gain
-        self.fuel_map = fuel_map
+
 
     def display_profile(self):
         print("========== ECU PROFILE ==========")
@@ -22,6 +23,7 @@ class ECUProfile:
         print(f"Horsepower Gain : {self.horsepower_gain}")
         print(f"Torque Gain : {self.torque_gain}")
         self.fuel_map.display_fuel_map()
+        self.ignition_timing.display_ignition_timing()
 
     def update_profile(self):
         print("========== Update Profile ===========")
@@ -34,6 +36,7 @@ class ECUProfile:
         print("7. Update Horsepower Gain")
         print("8. Update Torque Gain")
         print("9. Update Fuel Map")
+        print("10 Update Ignition Timing")
         print()
         choice = input("Enter your choice:- ")
         if choice == "1":
@@ -70,6 +73,8 @@ class ECUProfile:
             print(f"Torque Gain update successfully to {self.torque_gain}")
         elif choice == "9":
             self.fuel_map.update_fuel_map()
+        elif choice == "10":
+            self.ignition_timing.update_ignition_timing()
         else:
             print("Invalid choice!!!!")
 
@@ -81,4 +86,5 @@ class ECUProfile:
                 "launch_control": self.launch_control,
                 "pops_and_bangs": self.pops_and_bangs,
                 "horsepower_gain": self.horsepower_gain,
-                "torque_gain": self.torque_gain}
+                "torque_gain": self.torque_gain,
+                "ignition_timing": self.ignition_timing.to_dict()}
