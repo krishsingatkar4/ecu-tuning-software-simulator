@@ -1,8 +1,9 @@
 from models.fuel_map import FuelMap
 from models.ignition_timing import IgnitionTiming
+from models.dyno import Dyno
 
 class ECUProfile:
-    def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain,turbo):
+    def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain,turbo,dyno):
         self.profile_name = profile_name
         self.fuel_map = fuel_map
         self.ignition_timing = ignition_timing
@@ -12,6 +13,7 @@ class ECUProfile:
         self.horsepower_gain = horsepower_gain
         self.torque_gain = torque_gain
         self.turbo = turbo
+        self.dyno = dyno
 
     def display_profile(self):
         print("========== ECU PROFILE ==========")
@@ -25,6 +27,7 @@ class ECUProfile:
         self.fuel_map.display_fuel_map()
         self.ignition_timing.display_ignition_timing()
         self.turbo.display_turbo()
+        self.dyno.display_dyno()
 
     def update_profile(self):
         print("========== Update Profile ===========")
@@ -39,6 +42,7 @@ class ECUProfile:
         print("9. Update Fuel Map")
         print("10 Update Ignition Timing")
         print("11. Update Tubro")
+        print("12. Update Dyno")
         print()
         choice = input("Enter your choice:- ")
         if choice == "1":
@@ -77,8 +81,10 @@ class ECUProfile:
             self.fuel_map.update_fuel_map()
         elif choice == "10":
             self.ignition_timing.update_ignition_timing()
-        elif choice == "10":
+        elif choice == "11":
             self.turbo.update_turbo()
+        elif choice == "12":
+            self.dyno.update_dyno()
         else:
             print("Invalid choice!!!!")
 
@@ -92,4 +98,5 @@ class ECUProfile:
                 "horsepower_gain": self.horsepower_gain,
                 "torque_gain": self.torque_gain,
                 "ignition_timing": self.ignition_timing.to_dict(),
-                "turbo": self.turbo.to_dict()}
+                "turbo": self.turbo.to_dict(),
+                "dyno": self.dyno.to_dict()}

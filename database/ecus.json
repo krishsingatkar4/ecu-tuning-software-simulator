@@ -1,39 +1,38 @@
 [
     {
         "ecu_id": "ECU005",
-        "ecu_brand": "Garrett",
-        "ecu_model": "G35-900",
+        "ecu_brand": "Bosch",
+        "ecu_model": "MED17.5",
         "protocol": "CAN Bus",
         "connection_status": "Connected",
         "supported_features": [
-            "Fuel Map",
+            " Fuel Map",
             "Launch Control",
-            "Anti Lag",
-            "Ignition Timing",
-            "Turbo"
+            "Turbo",
+            "Dyno"
         ],
         "firmware": {
             "firmware_version": "V7.1",
-            "manufacturer": "Garrett",
+            "manufacturer": "Bosch",
             "release_year": "2026",
-            "checksum": "GTR555",
+            "checksum": "ABC999",
             "flash_status": "Flashed",
             "file_size_mb": "64"
         },
         "profile": {
             "profile_name": "Stage 5",
             "fuel_map": {
-                "fuel_map_name": "Drag Tune",
-                "afr": "11.8",
+                "fuel_map_name": "Ultimate Tune",
+                "afr": "12.1",
                 "injector_size": "850cc",
-                "fuel_pressure": "6 bar",
+                "fuel_pressure": "5.8 bar",
                 "mode": "Race",
                 "fuel_type": "Petrol"
             },
             "ignition_timing": {
-                "timing_name": "Drag Timing",
+                "timing_name": "Race Timing",
                 "timing_advance": "10",
-                "timing_retard": "1",
+                "timing_retard": "2",
                 "knock_detection": "Enable",
                 "safe_limit": "9000",
                 "octane_requirement": "100"
@@ -46,13 +45,23 @@
             "turbo": {
                 "turbo_name": "GTX3582R",
                 "turbo_brand": "Garrett",
-                "turbo_type": "Twin Scroll",
-                "boost_pressure": "2.2 bar",
-                "wastegate_pressure": "1.6 bar",
-                "spool_rpm": "3600",
+                "turbo_type": "Twin Turbo",
+                "boost_pressure": "2.0 bar",
+                "wastegate_pressure": "1.4 bar",
+                "spool_rpm": "3500",
                 "anti_lag": "Enable",
-                "intercooler_type": "Air to Air",
-                "horsepower_support": "900"
+                "intercooler_type": "Front Mount",
+                "horsepower_support": "800 HP"
+            },
+            "dyno": {
+                "dyno_name": "Race Dyno",
+                "vehicle_weight": 1500.0,
+                "drivetrain_loss": 15.0,
+                "wheel_horsepower": 650.0,
+                "wheel_torque": 780.0,
+                "zero_to_hundred": 0.0,
+                "quarter_mile": 0.0,
+                "top_speed": 0.0
             }
         }
     }

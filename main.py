@@ -1,4 +1,5 @@
 from managers.ecu_manager import ECUManager
+from models.dyno import Dyno
 manager = ECUManager()
 
-manager.display_all_ecus()
+manager.ecus[0].profile.dyno.calculation_performance()
