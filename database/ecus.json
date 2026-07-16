@@ -1,47 +1,59 @@
 [
     {
-        "ecu_id": "ECU004",
-        "ecu_brand": "Continental",
-        "ecu_model": "SIMOS18",
-        "protocol": "FlexRay",
+        "ecu_id": "ECU005",
+        "ecu_brand": "Garrett",
+        "ecu_model": "G35-900",
+        "protocol": "CAN Bus",
         "connection_status": "Connected",
         "supported_features": [
             "Fuel Map",
             "Launch Control",
             "Anti Lag",
-            "Ignition Timing"
+            "Ignition Timing",
+            "Turbo"
         ],
         "firmware": {
-            "firmware_version": "V6.0",
-            "manufacturer": "Continental",
+            "firmware_version": "V7.1",
+            "manufacturer": "Garrett",
             "release_year": "2026",
-            "checksum": "DEF789",
+            "checksum": "GTR555",
             "flash_status": "Flashed",
-            "file_size_mb": "48"
+            "file_size_mb": "64"
         },
         "profile": {
-            "profile_name": "Stage 4",
+            "profile_name": "Stage 5",
             "fuel_map": {
-                "fuel_map_name": "Track Tune",
-                "afr": "12.2",
-                "injector_size": "700cc",
-                "fuel_pressure": "5.5 bar",
+                "fuel_map_name": "Drag Tune",
+                "afr": "11.8",
+                "injector_size": "850cc",
+                "fuel_pressure": "6 bar",
                 "mode": "Race",
                 "fuel_type": "Petrol"
             },
             "ignition_timing": {
-                "timing_name": "Aggressive Timing",
-                "timing_advance": "8",
-                "timing_retard": "2",
+                "timing_name": "Drag Timing",
+                "timing_advance": "10",
+                "timing_retard": "1",
                 "knock_detection": "Enable",
-                "safe_limit": "8500",
-                "octane_requirement": "98"
+                "safe_limit": "9000",
+                "octane_requirement": "100"
             },
-            "rev_limit": "8500",
+            "rev_limit": "9000",
             "launch_control": "Enable",
             "pops_and_bangs": "Enable",
-            "horsepower_gain": "150",
-            "torque_gain": "190"
+            "horsepower_gain": "220",
+            "torque_gain": "300",
+            "turbo": {
+                "turbo_name": "GTX3582R",
+                "turbo_brand": "Garrett",
+                "turbo_type": "Twin Scroll",
+                "boost_pressure": "2.2 bar",
+                "wastegate_pressure": "1.6 bar",
+                "spool_rpm": "3600",
+                "anti_lag": "Enable",
+                "intercooler_type": "Air to Air",
+                "horsepower_support": "900"
+            }
         }
     }
 ]

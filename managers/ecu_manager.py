@@ -3,6 +3,7 @@ from models.ecu_firware import ECUFirmware
 from models.ecu_profile import ECUProfile
 from models.fuel_map import FuelMap
 from models.ignition_timing import IgnitionTiming
+from models.turbo import Turbo
 import time
 import json
 
@@ -43,6 +44,17 @@ class ECUManager:
         safe_limit = input("Enter Safe Limit:- ")
         octane_requriement = input("Enter Octane Requrimenet:- ")
         ignition_timing = IgnitionTiming(timing_name,timing_advance,timing_retard,knock_detection,safe_limit,octane_requriement)
+        #Turbo 
+        turbo_name = input("Enter Turbo Name:- ")
+        turbo_brand = input("Enter Turbo Brand;- ")
+        turbo_type = input("Enter Turbo Type:- ")
+        boost_pressure = input("Enter Boost Pressure:- ")
+        wastegate_pressure = input("Enter Wastegate Pressure:- ")
+        spool_rpm = input("Enter Spool RPM:- ")
+        anti_lag = input("Enter Anti Lag:- ")
+        intercooler_type = input("Enter Intercooler Type:- ")
+        horsepower_support = input("Enter Horsepower Support:- ")
+        turbo = Turbo(turbo_name,turbo_brand,turbo_type,boost_pressure,wastegate_pressure,spool_rpm,anti_lag,intercooler_type,horsepower_support)
         #ECU Profile
         profile_name = input("Enter Profile Name:- ")
         rev_limit = input("Enter Rev Limit:- ")
@@ -50,7 +62,7 @@ class ECUManager:
         pop_bangs = input("Enter Pops and Bangs:- ")
         horsepower_gain = input("Enter Horsepower Gain:- ")
         torque_gain = input("Enter Torque Gain:- ")
-        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain)
+        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain,turbo)
         ecu = ECU(ecu_id,ecu_brand,ecu_model,protocol,connection_status,supported_features,firmware,profile)
         self.ecus.append(ecu)
         self.save_ecus()
@@ -159,6 +171,7 @@ class ECUManager:
             profile_info = ecu_data["profile"]
             fuel_map_info = profile_info["fuel_map"]
             ignition_timing_info = profile_info["ignition_timing"]
+            turbo_info = profile_info["turbo"]
             firmware = ECUFirmware(
                 firmware_info["firmware_version"],
                 firmware_info["manufacturer"],
@@ -180,6 +193,16 @@ class ECUManager:
                 ignition_timing_info["knock_detection"],
                 ignition_timing_info["safe_limit"],
                 ignition_timing_info["octane_requirement"])
+            turbo = Turbo(
+                turbo_info["turbo_name"],
+                turbo_info["turbo_brand"],
+                turbo_info["turbo_type"],
+                turbo_info["boost_pressure"],
+                turbo_info["wastegate_pressure"],
+                turbo_info["spool_rpm"],
+                turbo_info["anti_lag"],
+                turbo_info["intercooler_type"],
+                turbo_info["horsepower_support"])
             profile = ECUProfile(
                 profile_info["profile_name"],
                 fuel_map,
@@ -188,7 +211,8 @@ class ECUManager:
                 profile_info["launch_control"],
                 profile_info["pops_and_bangs"],
                 profile_info["horsepower_gain"],
-                profile_info["torque_gain"])
+                profile_info["torque_gain"],
+                turbo)
             ecu = ECU(
                 ecu_data["ecu_id"],
                 ecu_data["ecu_brand"],
