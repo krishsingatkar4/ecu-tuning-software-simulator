@@ -6,6 +6,7 @@ from models.ignition_timing import IgnitionTiming
 from models.turbo import Turbo
 from models.dyno import Dyno
 from models.diagostic import Diagnostic
+from models.ecu_flash import ECUFlash
 import time
 import json
 
@@ -27,9 +28,8 @@ class ECUManager:
         manufacturer = input("Enter Manufacturer:- ")
         release_year = input("Enter Release Year:- ")
         checksum = input("Enter Checksum:- ")
-        flash_status = input("Enter Flash Status:- ")
         file_size_mb = input("Enter File size in MB:- ")
-        firmware = ECUFirmware(firmware_version,manufacturer,release_year, checksum,flash_status,file_size_mb)
+        firmware = ECUFirmware(firmware_version,manufacturer,release_year, checksum,file_size_mb)
         #Fuel Map
         fuel_map_name = input("Enter Fuel Map Name:- ")
         afr = input("Enter afr:- ")
@@ -75,6 +75,15 @@ class ECUManager:
         sensor = input("Enter Sensor:- ")
         description = input("Enter Description:- ")
         diagnostic = Diagnostic(fault_name,fault_code,severity,status,sensor,description)
+        #Flash
+        flash_name = input("Enter Flash Name:- ")
+        tune_file = input("Enter Tune File:- ")
+        tune_version = input("Enter Tune Version:- ")
+        file_size = input("Enter File Size:- ")
+        flash_status = input("Enter Flash Status:- ")
+        backup_status = input("Enter Backup status:- ")
+        flash_time = input("Enter Flash time:- ")
+        flash = ECUFlash(flash_name,tune_file,tune_version,file_size,flash_status,backup_status,flash_time)
         #ECU Profile
         profile_name = input("Enter Profile Name:- ")
         rev_limit = input("Enter Rev Limit:- ")
@@ -82,7 +91,7 @@ class ECUManager:
         pop_bangs = input("Enter Pops and Bangs:- ")
         horsepower_gain = input("Enter Horsepower Gain:- ")
         torque_gain = input("Enter Torque Gain:- ")
-        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic)
+        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic,flash)
         ecu = ECU(ecu_id,ecu_brand,ecu_model,protocol,connection_status,supported_features,firmware,profile)
         self.ecus.append(ecu)
         self.save_ecus()
@@ -194,6 +203,7 @@ class ECUManager:
             turbo_info = profile_info["turbo"]
             dyno_info = profile_info["dyno"]
             diagnostic_info = profile_info["diagnostic"]
+            flash_info = profile_info["flash"]
             firmware = ECUFirmware(
                 firmware_info["firmware_version"],
                 firmware_info["manufacturer"],
@@ -241,6 +251,14 @@ class ECUManager:
                 diagnostic_info["status"],
                 diagnostic_info["sensor"],
                 diagnostic_info["description"])
+            flash = ECUFlash(
+                flash_info["flash_name"],
+                flash_info["tune_file"],
+                flash_info["tune_version"],
+                flash_info["file_size"],
+                flash_info["flash_status"],
+                flash_info["backup_status"],
+                flash_info["flash_time"])
             profile = ECUProfile(
                 profile_info["profile_name"],
                 fuel_map,
@@ -252,7 +270,8 @@ class ECUManager:
                 profile_info["torque_gain"],
                 turbo,
                 dyno,
-                diagnostic)
+                diagnostic,
+                flash)
             ecu = ECU(
                 ecu_data["ecu_id"],
                 ecu_data["ecu_brand"],
@@ -312,6 +331,14 @@ class ECUManager:
             "Active",
             "Crankshaft Sensor",
             "Engine misfire detected")
+        flash = ECUFlash(
+            "Stage 4 Flash",
+            "stage4.bin",
+            "V2.0",
+            "72 MB",
+            "Ready",
+            "Not Created",
+            "120 sec")
         profile = ECUProfile(
             "Stage 5",
             fuel_map,
@@ -323,14 +350,15 @@ class ECUManager:
             "300",
             turbo,
             dyno,
-            diagnostic)
+            diagnostic,
+            flash)
         ecu = ECU(
             "ECU005",
             "Bosch",
             "MED17.5",
             "CAN Bus",
             "Connected",
-            ["Fuel Map", "Launch Control", "Turbo", "Dyno"],
+            ["Fuel Map", "Launch Control", "Turbo", "Dyno", "Diagnostic", "Flash"],
             firmware,
             profile)
         self.ecus.append(ecu)

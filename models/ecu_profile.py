@@ -4,7 +4,7 @@ from models.dyno import Dyno
 from models.diagostic import Diagnostic
 
 class ECUProfile:
-    def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic):
+    def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic,flash):
         self.profile_name = profile_name
         self.fuel_map = fuel_map
         self.ignition_timing = ignition_timing
@@ -16,6 +16,7 @@ class ECUProfile:
         self.turbo = turbo
         self.dyno = dyno
         self.diagnostic = diagnostic
+        self.flash = flash
 
     def display_profile(self):
         print("========== ECU PROFILE ==========")
@@ -31,6 +32,7 @@ class ECUProfile:
         self.turbo.display_turbo()
         self.dyno.display_dyno()
         self.diagnostic.display_diagnostic()
+        self.flash.display_flash()
 
     def update_profile(self):
         print("========== Update Profile ===========")
@@ -47,6 +49,7 @@ class ECUProfile:
         print("11. Update Tubro")
         print("12. Update Dyno")
         print("13. Update Diagnostic")
+        print("14. Update ECU Flash")
         print()
         choice = input("Enter your choice:- ")
         if choice == "1":
@@ -91,6 +94,8 @@ class ECUProfile:
             self.dyno.update_dyno()
         elif choice == "13":
             self.diagnostic.update_diagnostic()
+        elif choice == "14":
+            self.flash.update_flash()
         else:
             print("Invalid choice!!!!")
 
@@ -106,4 +111,5 @@ class ECUProfile:
                 "ignition_timing": self.ignition_timing.to_dict(),
                 "turbo": self.turbo.to_dict(),
                 "dyno": self.dyno.to_dict(),
-                "diagnostic":self.diagnostic.to_dict()}
+                "diagnostic":self.diagnostic.to_dict(),
+                "flash":self.flash.to_dict()}
