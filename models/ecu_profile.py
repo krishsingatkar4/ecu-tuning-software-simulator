@@ -1,9 +1,10 @@
 from models.fuel_map import FuelMap
 from models.ignition_timing import IgnitionTiming
 from models.dyno import Dyno
+from models.diagostic import Diagnostic
 
 class ECUProfile:
-    def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain,turbo,dyno):
+    def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic):
         self.profile_name = profile_name
         self.fuel_map = fuel_map
         self.ignition_timing = ignition_timing
@@ -14,6 +15,7 @@ class ECUProfile:
         self.torque_gain = torque_gain
         self.turbo = turbo
         self.dyno = dyno
+        self.diagnostic = diagnostic
 
     def display_profile(self):
         print("========== ECU PROFILE ==========")
@@ -28,6 +30,7 @@ class ECUProfile:
         self.ignition_timing.display_ignition_timing()
         self.turbo.display_turbo()
         self.dyno.display_dyno()
+        self.diagnostic.display_diagnostic()
 
     def update_profile(self):
         print("========== Update Profile ===========")
@@ -43,6 +46,7 @@ class ECUProfile:
         print("10 Update Ignition Timing")
         print("11. Update Tubro")
         print("12. Update Dyno")
+        print("13. Update Diagnostic")
         print()
         choice = input("Enter your choice:- ")
         if choice == "1":
@@ -85,6 +89,8 @@ class ECUProfile:
             self.turbo.update_turbo()
         elif choice == "12":
             self.dyno.update_dyno()
+        elif choice == "13":
+            self.diagnostic.update_diagnostic()
         else:
             print("Invalid choice!!!!")
 
@@ -99,4 +105,5 @@ class ECUProfile:
                 "torque_gain": self.torque_gain,
                 "ignition_timing": self.ignition_timing.to_dict(),
                 "turbo": self.turbo.to_dict(),
-                "dyno": self.dyno.to_dict()}
+                "dyno": self.dyno.to_dict(),
+                "diagnostic":self.diagnostic.to_dict()}

@@ -5,6 +5,7 @@ from models.fuel_map import FuelMap
 from models.ignition_timing import IgnitionTiming
 from models.turbo import Turbo
 from models.dyno import Dyno
+from models.diagostic import Diagnostic
 import time
 import json
 
@@ -66,6 +67,14 @@ class ECUManager:
         quarter_mile = float(input("Enter Quarter Mile:- "))
         top_speed = float(input("Enter Top Speed:- "))
         dyno = Dyno(dyno_name,vehicle_weight,drivetrain_loss,wheel_horsepower,wheel_torque,zero_to_hundred,quarter_mile,top_speed)
+        #Diagnositc
+        fault_name = input("Enter Fault Name:- ")
+        fault_code = input("Enter Fault Code:- ")
+        severity = input("Enter Severity:- ")
+        status = input("Enter Status:- ")
+        sensor = input("Enter Sensor:- ")
+        description = input("Enter Description:- ")
+        diagnostic = Diagnostic(fault_name,fault_code,severity,status,sensor,description)
         #ECU Profile
         profile_name = input("Enter Profile Name:- ")
         rev_limit = input("Enter Rev Limit:- ")
@@ -73,7 +82,7 @@ class ECUManager:
         pop_bangs = input("Enter Pops and Bangs:- ")
         horsepower_gain = input("Enter Horsepower Gain:- ")
         torque_gain = input("Enter Torque Gain:- ")
-        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain,turbo,dyno)
+        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic)
         ecu = ECU(ecu_id,ecu_brand,ecu_model,protocol,connection_status,supported_features,firmware,profile)
         self.ecus.append(ecu)
         self.save_ecus()
@@ -184,6 +193,7 @@ class ECUManager:
             ignition_timing_info = profile_info["ignition_timing"]
             turbo_info = profile_info["turbo"]
             dyno_info = profile_info["dyno"]
+            diagnostic_info = profile_info["diagnostic"]
             firmware = ECUFirmware(
                 firmware_info["firmware_version"],
                 firmware_info["manufacturer"],
@@ -224,6 +234,13 @@ class ECUManager:
                 dyno_info["zero_to_hundred"],
                 dyno_info["quarter_mile"],
                 dyno_info["top_speed"])
+            diagnostic = Diagnostic(
+                diagnostic_info["fault_code"],
+                diagnostic_info["fault_name"],
+                diagnostic_info["severity"],
+                diagnostic_info["status"],
+                diagnostic_info["sensor"],
+                diagnostic_info["description"])
             profile = ECUProfile(
                 profile_info["profile_name"],
                 fuel_map,
@@ -234,7 +251,8 @@ class ECUManager:
                 profile_info["horsepower_gain"],
                 profile_info["torque_gain"],
                 turbo,
-                dyno)
+                dyno,
+                diagnostic)
             ecu = ECU(
                 ecu_data["ecu_id"],
                 ecu_data["ecu_brand"],
@@ -245,3 +263,75 @@ class ECUManager:
                 firmware,
                 profile)
             self.ecus.append(ecu)
+
+    def create_test_ecu(self):
+        firmware = ECUFirmware(
+            "V7.1",
+            "Bosch",
+            "2026",
+            "ABC999",
+            "Flashed",
+            "64")
+        fuel_map = FuelMap(
+            "Ultimate Tune",
+            "12.1",
+            "850cc",
+            "5.8 bar",
+            "Race",
+            "Petrol")
+        ignition_timing = IgnitionTiming(
+            "Race Timing",
+            "10",
+            "2",
+            "Enable",
+            "9000",
+            "100")
+        turbo = Turbo(
+            "GTX3582R",
+            "Garrett",
+            "Twin Turbo",
+            "2.0 bar",
+            "1.4 bar",
+            "3500",
+            "Enable",
+            "Front Mount",
+            "800 HP")
+        dyno = Dyno(
+            "Race Dyno",
+            1500,
+            15,
+            650,
+            780,
+            0,
+            0,
+            0)
+        diagnostic = Diagnostic(
+            "P0300",
+            "Random Misfire",
+            "High",
+            "Active",
+            "Crankshaft Sensor",
+            "Engine misfire detected")
+        profile = ECUProfile(
+            "Stage 5",
+            fuel_map,
+            ignition_timing,
+            "9000",
+            "Enable",
+            "Enable",
+            "220",
+            "300",
+            turbo,
+            dyno,
+            diagnostic)
+        ecu = ECU(
+            "ECU005",
+            "Bosch",
+            "MED17.5",
+            "CAN Bus",
+            "Connected",
+            ["Fuel Map", "Launch Control", "Turbo", "Dyno"],
+            firmware,
+            profile)
+        self.ecus.append(ecu)
+        print("Test ECU created successfully...")
