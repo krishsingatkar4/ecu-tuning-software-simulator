@@ -4,10 +4,8 @@ manager = ECUManager()
 
 manager.create_test_ecu()
 
-manager.display_all_ecus()
+manager.ecus[0].profile.live_data.update_live_data()
 
-flash = manager.ecus[0].profile.flash
+manager.ecus[0].profile.live_data.display_live_data()
 
-flash.creat_backup()
-flash.start_flash()
-flash.update_flash()
+manager.ecus[0].profile.live_data.start_live_monitor()

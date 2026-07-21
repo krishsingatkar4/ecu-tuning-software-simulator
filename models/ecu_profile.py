@@ -1,10 +1,5 @@
-from models.fuel_map import FuelMap
-from models.ignition_timing import IgnitionTiming
-from models.dyno import Dyno
-from models.diagostic import Diagnostic
-
 class ECUProfile:
-    def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic,flash):
+    def __init__(self,profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pops_and_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic,flash,live_data):
         self.profile_name = profile_name
         self.fuel_map = fuel_map
         self.ignition_timing = ignition_timing
@@ -17,6 +12,7 @@ class ECUProfile:
         self.dyno = dyno
         self.diagnostic = diagnostic
         self.flash = flash
+        self.live_data = live_data
 
     def display_profile(self):
         print("========== ECU PROFILE ==========")
@@ -33,7 +29,8 @@ class ECUProfile:
         self.dyno.display_dyno()
         self.diagnostic.display_diagnostic()
         self.flash.display_flash()
-
+        self.live_data.display_live_data()
+    
     def update_profile(self):
         print("========== Update Profile ===========")
         print("1. Update Profile Name")
@@ -50,6 +47,7 @@ class ECUProfile:
         print("12. Update Dyno")
         print("13. Update Diagnostic")
         print("14. Update ECU Flash")
+        print("15. Udpate Live Data")
         print()
         choice = input("Enter your choice:- ")
         if choice == "1":
@@ -96,6 +94,8 @@ class ECUProfile:
             self.diagnostic.update_diagnostic()
         elif choice == "14":
             self.flash.update_flash()
+        elif choice == "15":
+            self.live_data.update_live_data()
         else:
             print("Invalid choice!!!!")
 
@@ -112,4 +112,5 @@ class ECUProfile:
                 "turbo": self.turbo.to_dict(),
                 "dyno": self.dyno.to_dict(),
                 "diagnostic":self.diagnostic.to_dict(),
-                "flash":self.flash.to_dict()}
+                "flash":self.flash.to_dict(),
+                "live_data":self.live_data.to_dict()}

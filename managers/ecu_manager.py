@@ -7,6 +7,7 @@ from models.turbo import Turbo
 from models.dyno import Dyno
 from models.diagostic import Diagnostic
 from models.ecu_flash import ECUFlash
+from models.live_data import LiveData
 import time
 import json
 
@@ -84,6 +85,16 @@ class ECUManager:
         backup_status = input("Enter Backup status:- ")
         flash_time = input("Enter Flash time:- ")
         flash = ECUFlash(flash_name,tune_file,tune_version,file_size,flash_status,backup_status,flash_time)
+        #Live Data
+        live_data = LiveData(
+        900,
+        0,
+        85,
+        0,
+        0.0,
+        14.7,
+        12.6,
+        1)
         #ECU Profile
         profile_name = input("Enter Profile Name:- ")
         rev_limit = input("Enter Rev Limit:- ")
@@ -91,7 +102,7 @@ class ECUManager:
         pop_bangs = input("Enter Pops and Bangs:- ")
         horsepower_gain = input("Enter Horsepower Gain:- ")
         torque_gain = input("Enter Torque Gain:- ")
-        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic,flash)
+        profile = ECUProfile(profile_name,fuel_map,ignition_timing,rev_limit,launch_control,pop_bangs,horsepower_gain,torque_gain,turbo,dyno,diagnostic,flash,live_data)
         ecu = ECU(ecu_id,ecu_brand,ecu_model,protocol,connection_status,supported_features,firmware,profile)
         self.ecus.append(ecu)
         self.save_ecus()
@@ -204,6 +215,7 @@ class ECUManager:
             dyno_info = profile_info["dyno"]
             diagnostic_info = profile_info["diagnostic"]
             flash_info = profile_info["flash"]
+            live_data_info = profile_info["live_data"]
             firmware = ECUFirmware(
                 firmware_info["firmware_version"],
                 firmware_info["manufacturer"],
@@ -259,6 +271,15 @@ class ECUManager:
                 flash_info["flash_status"],
                 flash_info["backup_status"],
                 flash_info["flash_time"])
+            live_data = LiveData(
+                live_data_info["rpm"],
+                live_data_info["speed"],
+                live_data_info["engine_temperature"],
+                live_data_info["throttle_position"],
+                live_data_info["boost_pressure"],
+                live_data_info["air_fuel_ratio"],
+                live_data_info["battery_voltage"],
+                live_data_info["gear"])
             profile = ECUProfile(
                 profile_info["profile_name"],
                 fuel_map,
@@ -271,7 +292,8 @@ class ECUManager:
                 turbo,
                 dyno,
                 diagnostic,
-                flash)
+                flash,
+                live_data)
             ecu = ECU(
                 ecu_data["ecu_id"],
                 ecu_data["ecu_brand"],
@@ -339,6 +361,15 @@ class ECUManager:
             "Ready",
             "Not Created",
             "120 sec")
+        live_data = LiveData(
+            900,
+            0,
+            85,
+            0,
+            0.0,
+            14.7,
+            12.6,
+            1)
         profile = ECUProfile(
             "Stage 5",
             fuel_map,
@@ -351,7 +382,8 @@ class ECUManager:
             turbo,
             dyno,
             diagnostic,
-            flash)
+            flash,
+            live_data)
         ecu = ECU(
             "ECU005",
             "Bosch",
