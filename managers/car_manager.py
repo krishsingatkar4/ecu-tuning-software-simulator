@@ -1,6 +1,17 @@
 from models.owner import Owner
 from models.engine import Engine
 from models.car import Car
+from managers.ecu_manager import ECUManager
+from models.ecu import ECU
+from models.ecu_firware import ECUFirmware
+from models.fuel_map import FuelMap
+from models.ecu_profile import ECUProfile
+from models.live_data import LiveData
+from models.ignition_timing import IgnitionTiming
+from models.turbo import Turbo
+from models.dyno import Dyno
+from models.diagnostic import Diagnostic
+from models.ecu_flash import ECUFlash
 import time
 import json
 
@@ -140,3 +151,166 @@ class CarManager:
                 self.cars.append(car)
         except FileNotFoundError:
             print("Database not found...")
+
+    def attach_ecu(self):
+        vin = input("Enter the VIN of car which you want to attach:- ")
+        for attach in self.cars:
+            if attach.vin.lower().strip() == vin.lower().strip():
+                ecu_manager = ECUManager()
+                ecu_manager.add_ecus()
+                attach.ecu = ecu_manager.ecus[-1]
+                attach.ecu.profile.dyno.calculate_wheel_power(
+                attach.engine.stock_horsepower,
+                attach.ecu.profile.horsepower_gain)
+                attach.ecu.profile.dyno.calculate_wheel_torque(
+                attach.engine.stock_torque,
+                attach.ecu.profile.torque_gain)
+                self.save_cars()
+                print("ECU attached successfully....")
+                break
+        else:
+            print("Car not found....")
+
+    def create_demo_project(self):
+        owner = Owner(
+            owner_id="OWN001",
+            name="Krish",
+            phone="9876543210",
+            email="krish@gmail.com",
+            city="Pune")
+        
+        engine = Engine(
+            engine_code="S58",
+            displacement_cc=3000,
+            cylinders=6,
+            fuel_type="Petrol",
+            aspiration="Twin Turbo",
+            stock_horsepower=530,
+            stock_torque=650,
+            compression_ratio=9.3,
+            redline_rpm=7500,
+            engine_status="Healthy")
+
+        fuel_map = FuelMap(
+            "Street Tune",
+            12.3,
+            "850cc",
+            "5.5 bar",
+            "Sport",
+            "Petrol")
+
+        ignition = IgnitionTiming(
+            "Race Timing",
+            10,
+            2,
+            "Enable",
+            9000,
+            100)
+
+        turbo = Turbo(
+            "GTX3582R",
+            "Garrett",
+            "Twin Turbo",
+            2.0,
+            1.4,
+            3500,
+            "Enable",
+            "Front Mount",
+            800)
+
+        dyno = Dyno(
+            "Race Dyno",
+            1500,
+            15,
+            0,
+            0,
+            0)
+        
+        diagnostic = Diagnostic(
+            "P0300",
+            "Random Misfire",
+            "High",
+            "Active",
+            "Crankshaft Sensor",
+            "Engine misfire detected")
+
+        flash = ECUFlash(
+            "Stage 5 Flash",
+            "stage5.bin",
+            "V2.0",
+            72,
+            "Ready",
+            "Not Created",
+            120)
+        
+        live_data = LiveData(
+            900,
+            0,
+            85,
+            0,
+            0,
+            14.7,
+            12.6,
+            1)
+
+        profile = ECUProfile(
+            "Stage 5",
+            fuel_map,
+            ignition,
+            9000,
+            "Enable",
+            "Enable",
+            220,
+            300,
+            turbo,
+            dyno,
+            diagnostic,
+            flash,
+            live_data)
+
+        ecu = ECU(
+            "ECU010",
+            "Bosch",
+            "MED17.5",
+            "CAN Bus",
+            "Connected",
+            [
+                "Fuel Map",
+                "Launch Control",
+                "Turbo",
+                "Dyno",
+                "Diagnostic",
+                "Flash",
+                "Live Data"
+            ],
+            ECUFirmware(
+                "V10",
+                "Bosch",
+                2026,
+                "XYZ999",
+                "Ready",
+                64
+            ),
+            profile)
+
+        dyno.calculate_wheel_horsepower(engine.stock_horsepower,profile.horsepower_gain)
+        dyno.calculate_wheel_torque(engine.stock_torque,profile.torque_gain)
+        dyno.calculate_zero_to_hundred(dyno.wheel_horsepower)
+        dyno.calculate_quarter_mile(dyno.wheel_horsepower)
+        dyno.calculate_top_speed(dyno.wheel_horsepower, dyno.vehicle_weight)
+
+        car = Car(
+            vin="MP68",
+            company="BMW",
+            model="M4 Competition",
+            year=2026,
+            transmission="Automatic",
+            drive_type="RWD",
+            mileage=0,
+            color="Black",
+            license_plate="MH12AB1234",
+            owner=owner,
+            engine=engine,
+            ecu=ecu)
+        self.cars.append(car)
+        print("Demo project created successfully...")

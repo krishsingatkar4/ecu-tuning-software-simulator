@@ -1,11 +1,9 @@
-from managers.ecu_manager import ECUManager
+from managers.car_manager import CarManager
 
-manager = ECUManager()
+manager = CarManager()
 
-manager.create_test_ecu()
+manager.create_demo_project()
 
-manager.ecus[0].profile.live_data.update_live_data()
+print("\n===== DISPLAY TEST =====\n")
 
-manager.ecus[0].profile.live_data.display_live_data()
-
-manager.ecus[0].profile.live_data.start_live_monitor()
+manager.display_all_cars()

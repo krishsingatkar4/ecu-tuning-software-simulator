@@ -5,7 +5,7 @@ from models.fuel_map import FuelMap
 from models.ignition_timing import IgnitionTiming
 from models.turbo import Turbo
 from models.dyno import Dyno
-from models.diagostic import Diagnostic
+from models.diagnostic import Diagnostic
 from models.ecu_flash import ECUFlash
 from models.live_data import LiveData
 import time
@@ -29,8 +29,9 @@ class ECUManager:
         manufacturer = input("Enter Manufacturer:- ")
         release_year = input("Enter Release Year:- ")
         checksum = input("Enter Checksum:- ")
+        flash_status = input("Enter Flash Status:- ")
         file_size_mb = input("Enter File size in MB:- ")
-        firmware = ECUFirmware(firmware_version,manufacturer,release_year, checksum,file_size_mb)
+        firmware = ECUFirmware(firmware_version,manufacturer,release_year,checksum,flash_status,file_size_mb)
         #Fuel Map
         fuel_map_name = input("Enter Fuel Map Name:- ")
         afr = input("Enter afr:- ")
@@ -62,13 +63,10 @@ class ECUManager:
         dyno_name = input("Enter Dyno Name:- ")
         vehicle_weight = float(input("Enter Vehicle Weight:- "))
         drivetrain_loss = float(input("Enter Drivetrain Loss:- "))
-        wheel_horsepower = float(input("Enter Wheel Horsepower:- "))
-        wheel_torque = float(input("Enter Wheel Torque:- "))
         zero_to_hundred = float(input("Enter 0-100 :- "))
         quarter_mile = float(input("Enter Quarter Mile:- "))
         top_speed = float(input("Enter Top Speed:- "))
-        dyno = Dyno(dyno_name,vehicle_weight,drivetrain_loss,wheel_horsepower,wheel_torque,zero_to_hundred,quarter_mile,top_speed)
-        #Diagnositc
+        dyno = Dyno(dyno_name,vehicle_weight,drivetrain_loss,zero_to_hundred,quarter_mile,top_speed)
         fault_name = input("Enter Fault Name:- ")
         fault_code = input("Enter Fault Code:- ")
         severity = input("Enter Severity:- ")
@@ -305,93 +303,4 @@ class ECUManager:
                 profile)
             self.ecus.append(ecu)
 
-    def create_test_ecu(self):
-        firmware = ECUFirmware(
-            "V7.1",
-            "Bosch",
-            "2026",
-            "ABC999",
-            "Flashed",
-            "64")
-        fuel_map = FuelMap(
-            "Ultimate Tune",
-            "12.1",
-            "850cc",
-            "5.8 bar",
-            "Race",
-            "Petrol")
-        ignition_timing = IgnitionTiming(
-            "Race Timing",
-            "10",
-            "2",
-            "Enable",
-            "9000",
-            "100")
-        turbo = Turbo(
-            "GTX3582R",
-            "Garrett",
-            "Twin Turbo",
-            "2.0 bar",
-            "1.4 bar",
-            "3500",
-            "Enable",
-            "Front Mount",
-            "800 HP")
-        dyno = Dyno(
-            "Race Dyno",
-            1500,
-            15,
-            650,
-            780,
-            0,
-            0,
-            0)
-        diagnostic = Diagnostic(
-            "P0300",
-            "Random Misfire",
-            "High",
-            "Active",
-            "Crankshaft Sensor",
-            "Engine misfire detected")
-        flash = ECUFlash(
-            "Stage 4 Flash",
-            "stage4.bin",
-            "V2.0",
-            "72 MB",
-            "Ready",
-            "Not Created",
-            "120 sec")
-        live_data = LiveData(
-            900,
-            0,
-            85,
-            0,
-            0.0,
-            14.7,
-            12.6,
-            1)
-        profile = ECUProfile(
-            "Stage 5",
-            fuel_map,
-            ignition_timing,
-            "9000",
-            "Enable",
-            "Enable",
-            "220",
-            "300",
-            turbo,
-            dyno,
-            diagnostic,
-            flash,
-            live_data)
-        ecu = ECU(
-            "ECU005",
-            "Bosch",
-            "MED17.5",
-            "CAN Bus",
-            "Connected",
-            ["Fuel Map", "Launch Control", "Turbo", "Dyno", "Diagnostic", "Flash"],
-            firmware,
-            profile)
-        self.ecus.append(ecu)
-        print("Test ECU created successfully...")
+    

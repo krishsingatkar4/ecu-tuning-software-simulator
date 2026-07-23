@@ -2,7 +2,7 @@ from models.owner import Owner
 from models.engine import Engine
 
 class Car:
-    def __init__(self,vin,company,model,year,transmission,drive_type,mileage,color,license_plate,owner,engine):
+    def __init__(self,vin,company,model,year,transmission,drive_type,mileage,color,license_plate,owner,engine,ecu=None):
         self.vin = vin
         self.company = company
         self.model = model
@@ -14,6 +14,7 @@ class Car:
         self.license_plate = license_plate
         self.owner = owner
         self.engine = engine
+        self.ecu = ecu
 
     def display_car(self):
         print("========== CAR INFORMATION ==========")
@@ -32,6 +33,8 @@ class Car:
         print("------------ ENGINE -----------")
         self.engine.display_engine()
         print()
+        if self.ecu:
+            self.ecu.display_ecu()
 
     def update_car(self):
         print("1. Update VIN:- ")
@@ -101,4 +104,5 @@ class Car:
                 "color":self.color,
                 "license_plate":self.license_plate,
                 "owner": self.owner.to_dict(),
-                "engine": self.engine.to_dict()}
+                "engine": self.engine.to_dict(),
+                "ecu":self.ecu.to_dict() if self.ecu else None}

@@ -1,26 +1,27 @@
 # Phase 6 Dyno Simulator
 import time
+
 class Dyno:
-    def __init__(self,dyno_name,vehicle_weight,drivetrain_loss,wheel_horsepower,wheel_torque,zero_to_hundred,quarter_mile,top_speed):
+    def __init__(self,dyno_name,vehicle_weight,drivetrain_loss,zero_to_hundred,quarter_mile,top_speed,):
         self.dyno_name = dyno_name
         self.vehicle_weight = vehicle_weight
         self.drivetrain_loss = drivetrain_loss
-        self.wheel_horsepower = wheel_horsepower
-        self.wheel_torque = wheel_torque
         self.zero_to_hundred = zero_to_hundred
         self.quarter_mile = quarter_mile
         self.top_speed = top_speed
+        self.wheel_horsepower = 0
+        self.wheel_torque = 0
 
     def display_dyno(self):
         print("============ DYNO INFO ============")
         print(f"Dyno Name : {self.dyno_name}")
-        print(f"Vehicle Weight : {self.vehicle_weight}")
-        print(f"drivetrain Loss : {self.drivetrain_loss}")
-        print(f"Wheel Horsepower : {self.wheel_horsepower}")
-        print(f"Wheel Torque : {self.wheel_torque}")
-        print(f"0-100 km/h : {self.zero_to_hundred}")
-        print(f"Quarter Mile : {self.quarter_mile}")
-        print(f"Top Speed : {self.top_speed}")
+        print(f"Vehicle Weight : {self.vehicle_weight} kg")
+        print(f"drivetrain Loss : {self.drivetrain_loss} ")
+        print(f"Wheel Horsepower : {self.wheel_horsepower} hp")
+        print(f"Wheel Torque : {self.wheel_torque} Nm")
+        print(f"0-100 km/h : {self.zero_to_hundred} sec")
+        print(f"Quarter Mile : {self.quarter_mile} sec")
+        print(f"Top Speed : {self.top_speed} km/h")
         print()
 
     def calculation_performance(self):
@@ -94,3 +95,28 @@ class Dyno:
                 "zero_to_hundred": self.zero_to_hundred,
                 "quarter_mile": self.quarter_mile,
                 "top_speed": self.top_speed}
+    
+    def calculate_wheel_horsepower(self,stock_horsepower,horsepower_gain):
+        wheel_horsepower = (stock_horsepower + horsepower_gain) * (1 - self.drivetrain_loss / 100)
+        self.wheel_horsepower = round(wheel_horsepower,2)
+        return self.wheel_horsepower
+    
+    def calculate_wheel_torque(self,stock_torque,torque_gain):
+        wheel_torque = (stock_torque + torque_gain) * (1 - self.drivetrain_loss / 100)
+        self.wheel_torque = round(wheel_torque, 2)
+        return self.wheel_torque
+    
+    def calculate_zero_to_hundred(self, wheel_horsepower):
+        zero_to_hundred = round(2.8 + (400 / wheel_horsepower),2)
+        self.zero_to_hundred = zero_to_hundred
+        return self.zero_to_hundred
+
+    def calculate_quarter_mile(self,wheel_horsepower):
+        quarter_mile = round(16 - (wheel_horsepower / 150),2)
+        self.quarter_mile = quarter_mile
+        return self.quarter_mile
+
+    def calculate_top_speed(self,wheel_horsepower, vehicle_weight):
+        top_speed = round(180 + (wheel_horsepower / 4) - (vehicle_weight / 100),2)
+        self.top_speed = top_speed
+        return self.top_speed

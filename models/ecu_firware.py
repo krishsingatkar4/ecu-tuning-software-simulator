@@ -56,7 +56,7 @@ class ECUFirmware:
     
     def to_dict(self):
         return {"firmware_version": self.firmware_version,
-                 "manufacturer": self.manufacturer,
+                "manufacturer": self.manufacturer,
                 "release_year": self.release_year,
                 "checksum": self.checksum,
                 "flash_status": self.flash_status,
