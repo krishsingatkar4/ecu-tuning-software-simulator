@@ -157,3 +157,52 @@ class Dyno:
         print(f"Quarter Mile : {self.quarter_mile} sec")
         print(f"Top Speed :    {self.top_speed} km/h\n")
         print("=========================================")
+
+    def performance_analysis(self,car,ecu):
+        print("\n========== PERFORMANCE ANALYSIS ==========\n")
+        if self.wheel_horsepower > 0 and self.wheel_horsepower <= 150:
+            grade = "D"
+            print(f"Performace Grade : {grade}")
+        elif self.wheel_horsepower > 150 and self.wheel_horsepower <= 200 :
+            grade = "C"
+            print(f"Performace Grade : {grade}")
+        elif self.wheel_horsepower > 200 and self.wheel_horsepower <= 349:
+            grade = "B"
+            print(f"Performance Grade : {grade}")
+        elif self.wheel_horsepower >= 350 and self.wheel_horsepower <= 499:
+            grade = "A"
+            print(f"Performance Grade : {grade}")
+        elif self.wheel_horsepower >=500 and self.wheel_horsepower <=699:
+            grade = "A+"
+            print(f"Performance Grade : {grade}")
+        else:
+            grade = "S"
+            print(f"Performance Grade : {grade}")
+        power_increase = round((ecu.profile.horsepower_gain / car.engine.stock_horsepower)*100,2)
+        print(f"Power Increase : {power_increase}%")
+        torque_increase = round((ecu.profile.torque_gain / car.engine.stock_torque)*100,2)
+        print(f"Torque Increase : {torque_increase}%")
+        estimated_crank_torque = round(self.wheel_torque / (1 - car.ecu.profile.dyno.drivetrain_loss / 100),2)
+        print(f"Estimated Crank Torque : {estimated_crank_torque} Nm")
+        estimated_crank_horsepower = round(self.wheel_horsepower / (1 - car.ecu.profile.dyno.drivetrain_loss / 100),2)
+        print(f"Estimated Crank Horsepower : {estimated_crank_horsepower} HP")
+        if self.wheel_horsepower > 0 and self.wheel_horsepower <= 150:
+            recommend = "Street Recommended"
+            print(f"Recommendation : {recommend}")
+        elif self.wheel_horsepower > 150 and self.wheel_horsepower <= 200 :
+            recommend = "Street + Tune Recommended"
+            print(f"Recommendation : {recommend}")
+        elif self.wheel_horsepower > 200 and self.wheel_horsepower <= 349:
+            recommend = "Sport Tune Recommended"
+            print(f"Recommendation : {recommend}")
+        elif self.wheel_horsepower >= 350 and self.wheel_horsepower <= 499:
+            recommend = "Race Tune Recommended"
+            print(f"Recommendation : {recommend}")
+        elif self.wheel_horsepower >=500 and self.wheel_horsepower <=699:
+            recommend = "Race + Tune Recommended "
+            print(f"Recommendation : {recommend}")
+        else:
+            recommend = "Professional Track Tune Recommended"
+            print(f"Recommendation : {recommend}")
+        print("\n==========================================")
+
