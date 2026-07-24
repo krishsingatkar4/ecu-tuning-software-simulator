@@ -67,13 +67,14 @@ class ECUManager:
         quarter_mile = float(input("Enter Quarter Mile:- "))
         top_speed = float(input("Enter Top Speed:- "))
         dyno = Dyno(dyno_name,vehicle_weight,drivetrain_loss,zero_to_hundred,quarter_mile,top_speed)
+        #Daignostic
         fault_name = input("Enter Fault Name:- ")
         fault_code = input("Enter Fault Code:- ")
         severity = input("Enter Severity:- ")
         status = input("Enter Status:- ")
         sensor = input("Enter Sensor:- ")
         description = input("Enter Description:- ")
-        diagnostic = Diagnostic(fault_name,fault_code,severity,status,sensor,description)
+        diagnostic = Diagnostic(fault_code,fault_name,severity,status,sensor,description)
         #Flash
         flash_name = input("Enter Flash Name:- ")
         tune_file = input("Enter Tune File:- ")

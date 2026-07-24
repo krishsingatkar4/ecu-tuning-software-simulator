@@ -1,0 +1,98 @@
+[
+    {
+        "fault_code": "P0300",
+        "fault_name": "Random/Multiple Cylinder Misfire Detected",
+        "severity": "High",
+        "status": "Active",
+        "sensor": "Crankshaft Position Sensor",
+        "description": "Engine misfire detected across multiple cylinders. Check ignition coils, spark plugs, and fuel injectors."
+    },
+    {
+        "fault_code": "P0171",
+        "fault_name": "System Too Lean (Bank 1)",
+        "severity": "Medium",
+        "status": "Active",
+        "sensor": "O2 Sensor (Upstream)",
+        "description": "Air-fuel mixture is too lean on Bank 1. Possible vacuum leak, faulty MAF sensor, or fuel delivery issue."
+    },
+    {
+        "fault_code": "P0420",
+        "fault_name": "Catalyst System Efficiency Below Threshold",
+        "severity": "Low",
+        "status": "Active",
+        "sensor": "O2 Sensor (Downstream)",
+        "description": "Catalytic converter is not performing efficiently. May need replacement."
+    },
+    {
+        "fault_code": "P0299",
+        "fault_name": "Turbocharger Underboost Condition",
+        "severity": "High",
+        "status": "Active",
+        "sensor": "Boost Pressure Sensor",
+        "description": "Turbocharger is not achieving target boost pressure. Check wastegate, boost leaks, and turbo condition."
+    },
+    {
+        "fault_code": "P0562",
+        "fault_name": "System Voltage Low",
+        "severity": "Medium",
+        "status": "Active",
+        "sensor": "Battery Voltage Sensor",
+        "description": "Battery voltage is below the minimum threshold. Check alternator, battery, and wiring."
+    },
+    {
+        "fault_code": "P0128",
+        "fault_name": "Coolant Thermostat Below Regulating Temperature",
+        "severity": "Low",
+        "status": "Active",
+        "sensor": "Engine Coolant Temperature Sensor",
+        "description": "Engine is not reaching optimal operating temperature. Thermostat may be stuck open."
+    },
+    {
+        "fault_code": "P0301",
+        "fault_name": "Cylinder 1 Misfire Detected",
+        "severity": "High",
+        "status": "Active",
+        "sensor": "Crankshaft Position Sensor",
+        "description": "Misfire detected in Cylinder 1. Check spark plug, ignition coil, and fuel injector for cylinder 1."
+    },
+    {
+        "fault_code": "P0302",
+        "fault_name": "Cylinder 2 Misfire Detected",
+        "severity": "High",
+        "status": "Active",
+        "sensor": "Crankshaft Position Sensor",
+        "description": "Misfire detected in Cylinder 2. Check spark plug, ignition coil, and fuel injector for cylinder 2."
+    },
+    {
+        "fault_code": "P0442",
+        "fault_name": "EVAP System Small Leak Detected",
+        "severity": "Low",
+        "status": "Active",
+        "sensor": "EVAP Pressure Sensor",
+        "description": "Small leak detected in the evaporative emission control system. Check gas cap and EVAP lines."
+    },
+    {
+        "fault_code": "P0500",
+        "fault_name": "Vehicle Speed Sensor Malfunction",
+        "severity": "Medium",
+        "status": "Active",
+        "sensor": "Vehicle Speed Sensor",
+        "description": "Vehicle speed sensor is providing no signal or erratic signal. Check sensor and wiring."
+    },
+    {
+        "fault_code": "P0606",
+        "fault_name": "ECM/PCM Processor Fault",
+        "severity": "High",
+        "status": "Active",
+        "sensor": "ECU Internal",
+        "description": "Internal processor fault detected in the Engine Control Module. ECU may need replacement or reflash."
+    },
+    {
+        "fault_code": "P2261",
+        "fault_name": "Turbocharger Bypass Valve Mechanical Fault",
+        "severity": "Medium",
+        "status": "Active",
+        "sensor": "Boost Pressure Sensor",
+        "description": "Turbocharger bypass valve (blow-off valve) is not operating correctly. Check valve and actuator."
+    }
+]

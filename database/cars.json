@@ -1,0 +1,128 @@
+[
+    {
+        "vin": "MP68",
+        "company": "BMW",
+        "model": "M4 Competition",
+        "year": 2026,
+        "transmission": "Automatic",
+        "drive_type": "RWD",
+        "mileage": 0,
+        "color": "Black",
+        "license_plate": "MH12AB1234",
+        "owner": {
+            "owner_id": "OWN001",
+            "name": "Krish",
+            "phone": "9876543210",
+            "email": "krish@gmail.com",
+            "city": "Pune"
+        },
+        "engine": {
+            "engine_code": "S58",
+            "displacement_cc": 3000,
+            "cylinders": 6,
+            "fuel_type": "Petrol",
+            "aspiration": "Twin Turbo",
+            "stock_horsepower": 530,
+            "stock_torque": 650,
+            "compression_ratio": 9.3,
+            "redline_rpm": 7500,
+            "engine_status": "Healthy"
+        },
+        "ecu": {
+            "ecu_id": "ECU010",
+            "ecu_brand": "Bosch",
+            "ecu_model": "MED17.5",
+            "protocol": "CAN Bus",
+            "connection_status": "Connected",
+            "supported_features": [
+                "Fuel Map",
+                "Launch Control",
+                "Turbo",
+                "Dyno",
+                "Diagnostic",
+                "Flash",
+                "Live Data"
+            ],
+            "firmware": {
+                "firmware_version": "V10",
+                "manufacturer": "Bosch",
+                "release_year": 2026,
+                "checksum": "XYZ999",
+                "flash_status": "Ready",
+                "file_size_mb": 64
+            },
+            "profile": {
+                "profile_name": "Stage 5",
+                "fuel_map": {
+                    "fuel_map_name": "Street Tune",
+                    "afr": 12.3,
+                    "injector_size": "850cc",
+                    "fuel_pressure": "5.5 bar",
+                    "mode": "Sport",
+                    "fuel_type": "Petrol"
+                },
+                "ignition_timing": {
+                    "timing_name": "Race Timing",
+                    "timing_advance": 10,
+                    "timing_retard": 2,
+                    "knock_detection": "Enable",
+                    "safe_limit": 9000,
+                    "octane_requirement": 100
+                },
+                "rev_limit": 9000,
+                "launch_control": "Enable",
+                "pops_and_bangs": "Enable",
+                "horsepower_gain": 220,
+                "torque_gain": 300,
+                "turbo": {
+                    "turbo_name": "GTX3582R",
+                    "turbo_brand": "Garrett",
+                    "turbo_type": "Twin Turbo",
+                    "boost_pressure": 2.0,
+                    "wastegate_pressure": 1.4,
+                    "spool_rpm": 3500,
+                    "anti_lag": "Enable",
+                    "intercooler_type": "Front Mount",
+                    "horsepower_support": 800
+                },
+                "dyno": {
+                    "dyno_name": "Race Dyno",
+                    "vehicle_weight": 1500,
+                    "drivetrain_loss": 15,
+                    "wheel_horsepower": 637.5,
+                    "wheel_torque": 807.5,
+                    "zero_to_hundred": 3.43,
+                    "quarter_mile": 11.75,
+                    "top_speed": 324.38
+                },
+                "diagnostic": {
+                    "fault_name": "Random Misfire",
+                    "fault_code": "P0300",
+                    "severity": "High",
+                    "status": "Active",
+                    "sensor": "Crankshaft Sensor",
+                    "description": "Engine misfire detected"
+                },
+                "flash": {
+                    "flash_name": "Stage 5 Flash",
+                    "tune_file": "stage5.bin",
+                    "tune_version": "V2.0",
+                    "file_size": 72,
+                    "flash_status": "Ready",
+                    "backup_status": "Not Created",
+                    "flash_time": 120
+                },
+                "live_data": {
+                    "rpm": 2190,
+                    "speed": 21,
+                    "engine_temperature": 97,
+                    "throttle_position": 0,
+                    "boost_pressure": 0.83,
+                    "air_fuel_ratio": 14.559999999999999,
+                    "battery_voltage": 13.0,
+                    "gear": 1
+                }
+            }
+        }
+    }
+]

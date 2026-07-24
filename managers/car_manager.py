@@ -159,7 +159,7 @@ class CarManager:
                 ecu_manager = ECUManager()
                 ecu_manager.add_ecus()
                 attach.ecu = ecu_manager.ecus[-1]
-                attach.ecu.profile.dyno.calculate_wheel_power(
+                attach.ecu.profile.dyno.calculate_wheel_horsepower(
                 attach.engine.stock_horsepower,
                 attach.ecu.profile.horsepower_gain)
                 attach.ecu.profile.dyno.calculate_wheel_torque(

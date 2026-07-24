@@ -49,13 +49,14 @@ class ECUFlash:
             print("Invalid Choice!!!!")
     
     def to_dict(self):
-        return {"flash_name" : {self.flash_name},
-                "tune_file": {self.tune_file},
-                "tune_version":{self.tune_version},
-                "file_size": {self.file_size},
-                "flash_status": {self.flash_status},
-                "backup_status": {self.backup_status},
-                "flash_time": {self.flash_time}}
+        return {
+            "flash_name": self.flash_name,
+            "tune_file": self.tune_file,
+            "tune_version": self.tune_version,
+            "file_size": self.file_size,
+            "flash_status": self.flash_status,
+            "backup_status": self.backup_status,
+            "flash_time": self.flash_time}
 
     def creat_backup(self):
         print("Connecting to ECU....")
